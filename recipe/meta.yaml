@@ -10,7 +10,7 @@ source:
   sha256: 11238f1d86c995d8aed2e22f04a1e3779f0d70e587caffeab4857f3c662ed5a4
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
 
 requirements:
@@ -26,7 +26,6 @@ requirements:
     - setuptools
   run:
     - dbus
-    - glib
     - python
 
 test:
