@@ -26,7 +26,6 @@ requirements:
     - setuptools
   run:
     - dbus
-    - glib
     - python
 
 test:
