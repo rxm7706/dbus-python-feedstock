@@ -9,18 +9,29 @@ set -ex
 #       for the build - we want to use pip because it handles metadata
 #       much better than pure setuptools
 
-# install non-python extras
+# -- install non-python extras
+
 mkdir -p _build
-pushd _build
+cd _build
+
+# configure
 ${SRC_DIR}/configure \
 	--prefix=${PREFIX} \
 ;
-make -j ${CPU_COUNT}
-if [ "$(uname)" == "Linux" ]; then  # tests fail on osx...
-    make -j ${CPU_COUNT} check
-fi
-make -j ${CPU_COUNT} install
-popd
 
-# build and install python
-${PYTHON} -m pip install . -vv --no-cache-dir --no-deps
+# build
+make -j ${CPU_COUNT}
+
+# test
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" ]] && [[ "$(uname)" == "Linux" ]];
+then  # tests fail on osx...
+	make -j ${CPU_COUNT} check V=1 VERBOSE=1
+fi
+
+# install
+make -j ${CPU_COUNT} install
+cd -
+
+# -- build and install python
+
+${PYTHON} -m pip install . -vv
