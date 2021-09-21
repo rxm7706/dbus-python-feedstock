@@ -2,11 +2,11 @@
 {% set version = "1.2.16" %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 11238f1d86c995d8aed2e22f04a1e3779f0d70e587caffeab4857f3c662ed5a4
 
 build:
@@ -15,12 +15,13 @@ build:
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - gnuconfig  # [unix]
     - make  # [unix]
     - pkg-config  # [unix]
+    # extras for cross-compilation
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - python                                 # [build_platform != target_platform]
   host:
     - dbus
     - glib
@@ -40,13 +41,13 @@ test:
     - pkg-config --print-errors --modversion dbus-python  # [unix]
 
 about:
-  home: "http://www.freedesktop.org/wiki/Software/DBusBindings/#python"
-  dev_url: "https://gitlab.freedesktop.org/dbus/dbus-python"
-  doc_url: "https://dbus.freedesktop.org/doc/dbus-python/"
-  license: "MIT"
-  license_family: "MIT"
-  license_file: "COPYING"
-  summary: "Python bindings for dbus"
+  home: http://www.freedesktop.org/wiki/Software/DBusBindings/#python
+  dev_url: https://gitlab.freedesktop.org/dbus/dbus-python
+  doc_url: https://dbus.freedesktop.org/doc/dbus-python/
+  license: MIT
+  license_family: MIT
+  license_file: COPYING
+  summary: Python bindings for dbus
   description: |
      D-Bus is a message bus, used for sending messages between applications.
      Conceptually, it fits somewhere in between raw sockets and CORBA in
