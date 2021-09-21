@@ -37,7 +37,11 @@ test:
     - dbus
   requires:
     - pkg-config  # [unix]
+    - pip
   commands:
+    # check requirements
+    - python -m pip check
+    # check pkg-config
     - pkg-config --print-errors --modversion dbus-python  # [unix]
 
 about:
