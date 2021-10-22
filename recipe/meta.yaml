@@ -14,6 +14,9 @@ source:
 build:
   number: 3
   skip: true  # [win]
+  script:
+    - cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux  # [unix]
+    - {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
@@ -27,7 +30,7 @@ requirements:
   host:
     - dbus
     - glib
-    - pip
+    - pip >=21.3
     - python
     - setuptools
   run:
@@ -38,13 +41,10 @@ test:
   imports:
     - dbus
   requires:
-    - pkg-config  # [unix]
     - pip
   commands:
     # check requirements
     - python -m pip check
-    # check pkg-config
-    - pkg-config --print-errors --modversion dbus-python  # [unix]
 
 about:
   home: http://www.freedesktop.org/wiki/Software/DBusBindings/#python
