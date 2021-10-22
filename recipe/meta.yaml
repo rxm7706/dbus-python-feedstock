@@ -13,7 +13,7 @@ source:
     - no-dbus_py_test.patch  # [build_platform != target_platform]
 
 build:
-  number: 3
+  number: 4
   skip: true  # [win]
   script:
     - cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux  # [unix]
