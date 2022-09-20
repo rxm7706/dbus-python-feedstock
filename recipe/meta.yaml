@@ -13,26 +13,27 @@ source:
 
 build:
   number: 0
+  script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [win]
-  script:
-    - cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux  # [unix]
-    - {{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
     - {{ compiler('c') }}
-    - gnuconfig  # [unix]
-    - make  # [unix]
+    - ninja
     - pkg-config  # [unix]
     # extras for cross-compilation
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+    - meson >=0.60.0                      # [build_platform != target_platform]
+    - python                              # [build_platform != target_platform]
   host:
     - dbus
     - glib
+    - meson >=0.60.0
+    - meson-python >=0.8.1
     - pip >=21.3
     - python
     - setuptools
+    - wheel
   run:
     - dbus
     - python
