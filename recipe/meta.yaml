@@ -13,7 +13,7 @@ source:
     - 0002-setup.py-read-MESON_ARGS.patch  # [build_platform != target_platform]
 
 build:
-  number: 0
+  number: 1
   script: {{ PYTHON }} -m pip install . -vv
   script_env:
     # need to specify PKG_CONFIG (only when cross-compiling, since it's not included
