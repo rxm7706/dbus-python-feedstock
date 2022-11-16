@@ -23,9 +23,10 @@ bash $MINIFORGE_FILE -b -p ${MINIFORGE_HOME}
 source ${MINIFORGE_HOME}/etc/profile.d/conda.sh
 conda activate base
 
-echo -e "\n\nInstalling ['conda-forge-ci-setup=3'] and conda-build."
 mamba install --update-specs --quiet --yes --channel conda-forge \
-    conda-build pip conda-forge-ci-setup=3
+    conda-build pip boa conda-forge-ci-setup=3 "py-lief<0.12"
+mamba update --update-specs --yes --quiet --channel conda-forge \
+    conda-build pip boa conda-forge-ci-setup=3 "py-lief<0.12"
 
 
 
@@ -74,7 +75,7 @@ if [[ "${BUILD_WITH_CONDA_DEBUG:-0}" == 1 ]]; then
     # Drop into an interactive shell
     /bin/bash
 else
-    conda build ./recipe -m ./.ci_support/${CONFIG}.yaml \
+    conda mambabuild ./recipe -m ./.ci_support/${CONFIG}.yaml \
         --suppress-variables ${EXTRA_CB_OPTIONS:-} \
         --clobber-file ./.ci_support/clobber_${CONFIG}.yaml
     ( startgroup "Validating outputs" ) 2> /dev/null
