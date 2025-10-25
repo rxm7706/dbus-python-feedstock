@@ -1,5 +1,5 @@
 {% set name = "dbus-python" %}
-{% set version = "1.3.2" %}
+{% set version = "1.4.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ad67819308618b5069537be237f8e68ca1c7fcc95ee4a121fe6845b1418248f8
+  sha256: 991666e498f60dbf3e49b8b7678f5559b8a65034fdf61aae62cdecdb7d89c770
   patches:
     - 0001-build-with-setuptools.patch
     - 0002-setup.py-read-MESON_ARGS.patch  # [build_platform != target_platform]
 
 build:
-  number: 6
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
   script_env:
     # need to specify PKG_CONFIG (only when cross-compiling, since it's not included
@@ -34,7 +34,10 @@ requirements:
   host:
     - dbus
     - glib
+    - meson-python >=0.8.1
     - meson >=0.60.0
+    - ninja
+    - patchelf
     - pip >=21.3
     - python
     - setuptools
