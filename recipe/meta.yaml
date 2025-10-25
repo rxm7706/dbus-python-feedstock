@@ -34,10 +34,10 @@ requirements:
   host:
     - dbus
     - glib
-    - meson-python >=0.8.1
+    #- meson-python >=0.8.1
     - meson >=0.60.0
     - ninja
-    - patchelf
+    #- patchelf
     - pip >=21.3
     - python
     - setuptools
